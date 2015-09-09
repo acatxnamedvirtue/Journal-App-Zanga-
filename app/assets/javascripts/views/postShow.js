@@ -1,8 +1,11 @@
 Zanga.Views.PostShow = Backbone.View.extend({
   template: JST['postShow'],
   events: {
-    'click .edit' : 'editPost',
-    'click .delete' : 'deletePost'
+    'click .delete' : 'deletePost',
+    'dblclick .title-area' : 'editTitle',
+    'dblclick .body-area' : 'editBody',
+    'blur .title-input' : 'saveTitle',
+    'blur .body-input' : 'saveBody'
   },
 
   initialize: function (){
@@ -15,12 +18,28 @@ Zanga.Views.PostShow = Backbone.View.extend({
     return this;
   },
 
-  editPost: function (e) {
-    Backbone.history.navigate("posts/" + this.model.id + "/edit", {trigger: true});
-  },
-
   deletePost: function (e) {
     this.model.destroy();
     Backbone.history.navigate("", {trigger: true});
+  },
+
+  editTitle: function (e){
+    $(e.currentTarget).html($("<input class=\"title-input\" type=\"text\" name=\"post[title]\" value=\"" +
+     this.model.get('title') + "\">"));
+  },
+
+  saveTitle: function (e){
+    var title = $(e.currentTarget).val();
+    this.model.save({title: title});
+  },
+
+  editBody: function (e){
+    $(e.currentTarget).html($("<textarea class=\"body-input\" name=\"post[title]\">"+
+     this.model.get('body') + "</textarea>"));
+  },
+
+  saveBody: function (e){
+    var body = $(e.currentTarget).val();
+    this.model.save({body: body});
   }
 })

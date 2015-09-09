@@ -2,8 +2,7 @@ Zanga.Routers.PostRouter = Backbone.Router.extend({
   routes: {
     "" : "root",
     "posts/new" : "postNew",
-    "posts/:id" : "postShow",
-    "posts/:id/edit" : "postEdit"
+    "posts/:id" : "postShow"
   },
 
   initialize: function ($el, postIndex){
@@ -18,7 +17,9 @@ Zanga.Routers.PostRouter = Backbone.Router.extend({
 
   postShow: function (id){
     var post = this._postsIndex.collection.getOrFetch(id);
-    this._swapPost(new Zanga.Views.PostShow({model: post}));
+    this._swapPost(new Zanga.Views.PostShow(
+      { model: post, collection: this._postsIndex.collection }
+    ));
   },
 
   postEdit: function (id){

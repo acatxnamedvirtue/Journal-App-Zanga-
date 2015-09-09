@@ -20,6 +20,6 @@ Zanga.Views.PostsIndex = Backbone.View.extend({
   },
 
   refreshPosts: function () {
-    this.collection.fetch({reset: true});
+    this.collection.fetch();
   }
 });

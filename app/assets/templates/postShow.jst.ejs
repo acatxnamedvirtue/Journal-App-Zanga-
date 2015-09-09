@@ -1,6 +1,9 @@
-<h1><%= post.escape('title') %></h1>
+<div class="title-area">
+  <h1 class="post-title"><%= post.escape('title') %></h1>
+</div>
 
-<p><%= post.escape('body') %></p>
+<div class="body-area">
+  <p class="post-body"><%= post.escape('body') %></p>
+</div>
 
-<button class='edit'>Edit Post</button>
 <button class='delete'>Delete Post</button>
