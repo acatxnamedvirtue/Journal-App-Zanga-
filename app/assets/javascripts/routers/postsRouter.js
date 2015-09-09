@@ -20,7 +20,7 @@ Zanga.Routers.PostRouter = Backbone.Router.extend({
     if(this._postsIndex === undefined) {
       this.postsIndex(this.postShow.bind(this, id));
       return;
-    }
+    };
 
     var post = this._postsIndex.collection.getOrFetch(id);
     this._swapPost(new Zanga.Views.PostShow({model: post}));
@@ -30,13 +30,22 @@ Zanga.Routers.PostRouter = Backbone.Router.extend({
     if(this._postsIndex === undefined) {
       this.postsIndex(this.postEdit.bind(this, id));
       return;
-    }
+    };
 
     var post = this._postsIndex.collection.getOrFetch(id);
     this._swapPost(new Zanga.Views.PostForm({model: post}));
   },
 
   postNew: function() {
+    if(this._postsIndex === undefined) {
+      this.postsIndex(this.postNew.bind(this));
+      return;
+    };
+
+    var post = new Zanga.Models.Post();
+    this._swapPost(new Zanga.Views.PostForm(
+      { model: post, collection: this._postsIndex.collection }
+    ));
   },
 
   _swapPost: function (view){

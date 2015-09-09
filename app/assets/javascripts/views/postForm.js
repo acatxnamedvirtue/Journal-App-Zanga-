@@ -17,14 +17,15 @@ Zanga.Views.PostForm = Backbone.View.extend({
     var formData = $(e.currentTarget).serializeJSON();
     this.model.set(formData.post);
     this.model.save({}, {
-      success: function() {
+      success: function(post) {
+        this.collection.add(post);
         Backbone.history.navigate("posts/" + this.model.id, {trigger: true});
       }.bind(this),
-      error: function(data, res) {
-        this.$el.find('.errors').empty()
+      error: function(post, res) {
+        this.$el.find('.errors').empty();
         _(res.responseJSON).each(function(el) {
           this.$el.find('.errors').append(el + "<br><br>")
-        }.bind(this))
+        }.bind(this));
       }.bind(this)
     });
   }
