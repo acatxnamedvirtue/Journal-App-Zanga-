@@ -1,5 +1,6 @@
 Zanga.Routers.PostRouter = Backbone.Router.extend({
   routes: {
+    "" : "root",
     "posts/new" : "postNew",
     "posts/:id" : "postShow",
     "posts/:id/edit" : "postEdit"
@@ -8,6 +9,11 @@ Zanga.Routers.PostRouter = Backbone.Router.extend({
   initialize: function ($el, postIndex){
     this.$el = $el;
     this._postsIndex = postIndex;
+  },
+
+  root: function (){
+    this._currentView && this._currentView.remove();
+    this._currentView = null;
   },
 
   postShow: function (id){

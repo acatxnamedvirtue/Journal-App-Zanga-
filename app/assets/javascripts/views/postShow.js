@@ -1,7 +1,8 @@
 Zanga.Views.PostShow = Backbone.View.extend({
   template: JST['postShow'],
   events: {
-    'click .edit' : 'editPost'
+    'click .edit' : 'editPost',
+    'click .delete' : 'deletePost'
   },
 
   initialize: function (){
@@ -16,5 +17,10 @@ Zanga.Views.PostShow = Backbone.View.extend({
 
   editPost: function (e) {
     Backbone.history.navigate("posts/" + this.model.id + "/edit", {trigger: true});
+  },
+
+  deletePost: function (e) {
+    this.model.destroy();
+    Backbone.history.navigate("", {trigger: true});
   }
 })
