@@ -2,7 +2,8 @@ Zanga.Views.PostsIndexItem = Backbone.View.extend({
   template: JST['postsIndexItem'],
   tagName: "li",
   events: {
-    'click .delete' : 'deletePost'
+    'click .delete' : 'deletePost',
+    'click .edit' : 'editPost'
   },
 
   render: function () {
@@ -13,5 +14,9 @@ Zanga.Views.PostsIndexItem = Backbone.View.extend({
 
   deletePost: function (e) {
     this.model.destroy();
+  },
+
+  editPost: function (e) {
+    Backbone.history.navigate("posts/" + this.model.id + "/edit", {trigger: true});
   }
 });
