@@ -15,8 +15,8 @@ Zanga.Views.PostForm = Backbone.View.extend({
   submitForm: function(e) {
     e.preventDefault();
     var formData = $(e.currentTarget).serializeJSON();
-    this.model.set(formData.post);
-    this.model.save({}, {
+    this.model.save(formData.post, {
+      wait: true,
       success: function(post) {
         this.collection.add(post);
         Backbone.history.navigate("posts/" + this.model.id, {trigger: true});

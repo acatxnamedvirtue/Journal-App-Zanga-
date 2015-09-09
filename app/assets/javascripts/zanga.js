@@ -4,7 +4,10 @@ window.Zanga = {
   Views: {},
   Routers: {},
   initialize: function() {
-    new Zanga.Routers.PostRouter($('.content'));
+    var sidebar = new Zanga.Views.PostsIndex();
+    $('.sidebar').html(sidebar.render().$el);
+    sidebar.refreshPosts();
+    new Zanga.Routers.PostRouter($('.content'), sidebar);
     Backbone.history.start();
   }
 };

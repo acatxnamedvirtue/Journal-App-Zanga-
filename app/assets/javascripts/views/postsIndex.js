@@ -1,8 +1,7 @@
 Zanga.Views.PostsIndex = Backbone.View.extend({
   initialize: function (){
     this.collection = new Zanga.Collections.Posts();
-    this.listenTo(this.collection, 'remove', this.render);
-    this.listenTo(this.collection, 'reset', this.render);
+    this.listenTo(this.collection, 'remove reset sync change', this.render);
   },
 
   template: JST['postsIndex'],
@@ -20,7 +19,7 @@ Zanga.Views.PostsIndex = Backbone.View.extend({
     return this;
   },
 
-  refreshPosts: function (callback) {
-    this.collection.fetch({success: callback, reset: true});
+  refreshPosts: function () {
+    this.collection.fetch({reset: true});
   }
 });

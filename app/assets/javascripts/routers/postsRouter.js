@@ -1,47 +1,28 @@
 Zanga.Routers.PostRouter = Backbone.Router.extend({
   routes: {
-    "" : "postsIndex",
     "posts/new" : "postNew",
     "posts/:id" : "postShow",
     "posts/:id/edit" : "postEdit"
   },
 
-  initialize: function ($el){
+  initialize: function ($el, postIndex){
     this.$el = $el;
-  },
-
-  postsIndex: function (callback){
-    this._postsIndex = new Zanga.Views.PostsIndex()
-    this._postsIndex.refreshPosts(callback);
-    this._swapPost(this._postsIndex);
+    this._postsIndex = postIndex;
   },
 
   postShow: function (id){
-    if(this._postsIndex === undefined) {
-      this.postsIndex(this.postShow.bind(this, id));
-      return;
-    };
-
     var post = this._postsIndex.collection.getOrFetch(id);
     this._swapPost(new Zanga.Views.PostShow({model: post}));
   },
 
   postEdit: function (id){
-    if(this._postsIndex === undefined) {
-      this.postsIndex(this.postEdit.bind(this, id));
-      return;
-    };
-
     var post = this._postsIndex.collection.getOrFetch(id);
-    this._swapPost(new Zanga.Views.PostForm({model: post}));
+    this._swapPost(new Zanga.Views.PostForm(
+      { model: post, collection: this._postsIndex.collection }
+    ));
   },
 
   postNew: function() {
-    if(this._postsIndex === undefined) {
-      this.postsIndex(this.postNew.bind(this));
-      return;
-    };
-
     var post = new Zanga.Models.Post();
     this._swapPost(new Zanga.Views.PostForm(
       { model: post, collection: this._postsIndex.collection }
